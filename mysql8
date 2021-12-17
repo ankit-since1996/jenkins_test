@@ -1,0 +1,40 @@
+#!/bin/bash
+
+apt update -y
+apt-get -y install mysql-server
+/etc/init.d/mysql start
+#systemctl start mysql
+service mysql start
+mysql -u root -e "CREATE USER 'admin'@'localhost' IDENTIFIED BY 'password';"
+mysql -u root -e "CREATE DATABASE project_database charset=utf8mb4;"
+mysql -u root -e "GRANT ALL PRIVILEGES ON project_database.* TO'admin'@'localhost';"
+
+apt-get install curl -y
+ curl -sS https://getcomposer.org/installer | php
+ mv composer.phar /usr/local/bin/composer
+chmod +x /usr/local/bin/composer
+COMPOSER_MEMORY_LIMIT=-1 composer create-project pimcore/skeleton /var/www/html/my-project
+/var/www/html/my-project/vendor/bin/pimcore-install --admin-username admin --admin-password admin \
+ --mysql-username admin --mysql-password password \
+ --mysql-database project_database \
+ --no-interaction
+touch /etc/apache2/sites-available/pimcore.conf
+echo "<VirtualHost *:80>
+    ServerAdmin webmaster@localhost
+   DocumentRoot /var/www/html/my-project/public/
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+    <Directory /var/www/html/my-project/public>
+        Options Indexes FollowSymLinks MultiViews
+        AllowOverride All
+        Require all granted
+    </Directory>
+</VirtualHost>" >>/etc/apache2/sites-available/pimcore.conf
+a2ensite pimcore.conf
+a2dissite 000-default.conf
+chown -R www-data:www-data /var/www/html/my-project/*
+chmod 775 -R /var/www/html/my-project/*
+a2enmod rewrite
+/etc/init.d/mysql restart
+/etc/init.d/apache2 restart
+
