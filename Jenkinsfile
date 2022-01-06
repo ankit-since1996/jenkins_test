@@ -22,7 +22,7 @@ pipeline {
         stage('build') {
           steps {
               
-              sh "zip ${upload_filename} -r ."
+              sh "zip myapp.zip -r ."
             }
         }
       
