@@ -1,6 +1,6 @@
+def bucket_name = 'test-gitlab-jenkins'
+def upload_filename = 'myapp.zip'
 node {
-    def bucket_name = 'test-gitlab-jenkins'
-    def upload_filename = 'myapp.zip'
   
 emailext mimeType: 'text/html',
     subject: "[Jenkins]${currentBuild.fullDisplayName}",
