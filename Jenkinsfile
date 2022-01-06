@@ -5,7 +5,9 @@ emailext mimeType: 'text/html',
     subject: "[Jenkins]${currentBuild.fullDisplayName}",
     from: "shrivastavankit62@gmail.com",
     to: "shrivastavankit62@gmail.com",
-    body: '''<a href="${BUILD_URL}input">click to approve</a>'''
+    body: '''<a href="${BUILD_URL}input">click to approve</a>''',
+    bucket_name:  'test-gitlab-jenkins',
+    upload_filename:  'myapp.zip'
 }
 
 pipeline {
@@ -20,7 +22,7 @@ pipeline {
         stage('build') {
           steps {
               
-              sh "zip myapp.zip -r ."
+              sh "zip "${upload_filename}" -r ."
             }
         }
       
@@ -30,7 +32,7 @@ pipeline {
                 ok "Yes"
             }
             steps {
-                s3Upload consoleLogLevel: 'INFO', dontSetBuildResultOnFailure: false, dontWaitForConcurrentBuildCompletion: false, entries: [[bucket: 'test-gitlab-jenkins', excludedFile: '', flatten: false, gzipFiles: false, keepForever: false, managedArtifacts: false, noUploadOnFailure: true, selectedRegion: 'sa-east-1', showDirectlyInBrowser: false, sourceFile: 'app.zip', storageClass: 'STANDARD', uploadFromSlave: false, useServerSideEncryption: false]], pluginFailureResultConstraint: 'FAILURE', profileName: 'testings3', userMetadata: []
+                s3Upload consoleLogLevel: 'INFO', dontSetBuildResultOnFailure: false, dontWaitForConcurrentBuildCompletion: false, entries: [[bucket: "${bucket_name}", excludedFile: '', flatten: false, gzipFiles: false, keepForever: false, managedArtifacts: false, noUploadOnFailure: true, selectedRegion: 'sa-east-1', showDirectlyInBrowser: false, sourceFile: "${upload_filename}", storageClass: 'STANDARD', uploadFromSlave: false, useServerSideEncryption: false]], pluginFailureResultConstraint: 'FAILURE', profileName: 'testings3', userMetadata: []
                 sh "echo 'Uploaded to S3' "
             }
         }
