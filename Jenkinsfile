@@ -15,7 +15,7 @@ pipeline {
             steps {
                 sh "rm -rf *"
                 sh "git clone https://github.com/ankit-since1996/jenkins_test.git/"
-                sh "sudo yum install zip"
+                sh "yum install zip"
                 sh "rm -f app.zip"
                 sh "zip app.zip -r ."
                 
