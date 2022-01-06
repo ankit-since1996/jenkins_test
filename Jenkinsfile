@@ -29,9 +29,6 @@ pipeline {
                 message "Should we continue?"
                 ok "Yes"
             }
-            when {
-                expression { user == 'hardCodeApproverJenkinsId'}
-            }
             steps {
                 sh "echo 'Uploaded to S3' "
             }
