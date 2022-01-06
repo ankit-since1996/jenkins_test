@@ -13,6 +13,9 @@ pipeline {
     stages {
         stage('Clone') {
             steps {
+                sh "pwd"
+                sh "ls -la"
+                sh "rm -rf *"
                 sh "ls -la"
                 sh "git clone https://github.com/ankit-since1996/jenkins_test.git/"
             }
