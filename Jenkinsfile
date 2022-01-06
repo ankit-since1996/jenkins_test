@@ -1,13 +1,13 @@
 def user
 node {
+    def bucket_name:  'test-gitlab-jenkins',
+    def upload_filename:  'myapp.zip'
   
 emailext mimeType: 'text/html',
     subject: "[Jenkins]${currentBuild.fullDisplayName}",
     from: "shrivastavankit62@gmail.com",
     to: "shrivastavankit62@gmail.com",
-    body: '''<a href="${BUILD_URL}input">click to approve</a>''',
-    bucket_name:  'test-gitlab-jenkins',
-    upload_filename:  'myapp.zip'
+    body: '''<a href="${BUILD_URL}input">click to approve</a>'''
 }
 
 pipeline {
@@ -22,7 +22,7 @@ pipeline {
         stage('build') {
           steps {
               
-              sh "zip myapp.zip -r ."
+            sh "zip ${upload_filename} -r ."
             }
         }
       
