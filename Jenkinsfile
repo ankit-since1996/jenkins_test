@@ -1,7 +1,7 @@
 def user
 node {
-    def bucket_name:  'test-gitlab-jenkins',
-    def upload_filename:  'myapp.zip'
+    def bucket_name = 'test-gitlab-jenkins',
+    def upload_filename = 'myapp.zip'
   
 emailext mimeType: 'text/html',
     subject: "[Jenkins]${currentBuild.fullDisplayName}",
