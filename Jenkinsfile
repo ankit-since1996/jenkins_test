@@ -15,13 +15,15 @@ pipeline {
             steps {
                 sh "rm -rf *"
                 sh "git clone https://github.com/ankit-since1996/jenkins_test.git/"
-                sh "yum install zip"
-                sh "rm -f app.zip"
-                sh "zip app.zip -r ."
-                
-                
             }
         }
+        stage('build') {
+          steps {
+              sh "rm -f app.zip"
+              sh "zip app.zip -r ."
+            }
+        }
+      
         stage('deploy') {
             input {
                 message "Should we continue?"
