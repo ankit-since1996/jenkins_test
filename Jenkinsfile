@@ -33,7 +33,7 @@ pipeline {
                 expression { user == 'hardCodeApproverJenkinsId'}
             }
             steps {
-                sh "echo 'describe your deployment' "
+                sh "echo 'Uploaded to S3' "
             }
         }
     }
