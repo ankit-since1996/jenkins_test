@@ -20,7 +20,6 @@ pipeline {
         }
         stage('build') {
           steps {
-              
             sh "zip ${upload_filename} -r ."
             }
         }
