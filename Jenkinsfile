@@ -21,7 +21,8 @@ pipeline {
         stage('build') {
           steps {
             sh "zip ${upload_filename} -r ."
-            sh "chmod 755 ${upload_filename}"
+            sh "chmod 777 ${upload_filename}"
+            sh "ls -la"
             }
         }
       
