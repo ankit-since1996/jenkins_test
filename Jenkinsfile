@@ -21,7 +21,7 @@ pipeline {
         stage('build') {
           steps {
             sh "zip ${upload_filename} -r ."
-            archiveArtifacts artifacts: '/*.zip', followSymlinks: false, onlyIfSuccessful: true
+            archiveArtifacts artifacts: '*.zip', followSymlinks: false, onlyIfSuccessful: true
             sh "chmod 777 ${upload_filename}"
             sh "ls -la"
             }
