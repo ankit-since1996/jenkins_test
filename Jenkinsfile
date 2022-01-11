@@ -23,7 +23,6 @@ pipeline {
             sh "zip ${upload_filename} -r ."
             sh "chmod 777 ${upload_filename}"
             sh "ls -la"
-            sh "pwd"
             }
         }
       
