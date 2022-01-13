@@ -21,4 +21,4 @@ apt install -y libapache2-mod-php \
   php-zip \
   php8.0-opcache \
   php-soap 
-  php --version
+  php -v
