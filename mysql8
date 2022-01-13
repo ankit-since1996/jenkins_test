@@ -35,7 +35,7 @@ a2dissite 000-default.conf
 chown -R www-data:www-data /var/www/html/my-project/*
 chmod 775 -R /var/www/html/my-project/*
 a2enmod rewrite
-/etc/init.d/mysql restart
+#/etc/init.d/mysql restart
 /etc/init.d/apache2 restart
 
 
