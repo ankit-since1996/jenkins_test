@@ -1,13 +1,6 @@
 def bucket_name = 'test-gitlab-jenkins'
 def upload_filename = 'app.zip'
-node {
-  
-emailext mimeType: 'text/html',
-    subject: "[Jenkins]${currentBuild.fullDisplayName}",
-    from: "shrivastavankit62@gmail.com",
-    to: "shrivastavankit62@gmail.com",
-    body: '''<a href="${BUILD_URL}input">click to approve</a>'''
-}
+
 
 pipeline {
     agent any
